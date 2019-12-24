@@ -1,8 +1,5 @@
 library(shiny)
-
-source("rsq_lite.R")
-
-library(shiny)
+source("local_file_system.R")
 
 # Define the fields we want to save from the form
 fields <- c("name", "used_shiny", "r_num_years")
@@ -22,14 +19,13 @@ shinyApp(
     # Whenever a field is filled, aggregate all form data
     formData <- reactive({
       data <- purrr::map_chr(fields, function(x) input[[x]])
-      names(date) <- fields
+      names(data) <- fields
       
       data
     })
     
     # When the Submit button is clicked, save the form data
     observeEvent(input$submit, {
-      browser()
       saveData(formData())
     })
     

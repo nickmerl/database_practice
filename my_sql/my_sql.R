@@ -3,7 +3,7 @@ library(RMySQL)
 options(mysql = list(
   "host" = "127.0.0.1",
   "port" = 3306,
-  "user" = "myuser",
+  "user" = "root",
   "password" = "mypassword"
 ))
 databaseName <- "myshinydatabase"
@@ -38,3 +38,38 @@ loadData <- function() {
   dbDisconnect(db)
   data
 }
+
+#' library(DBI)
+#' library(RMySQL)
+#' 
+#' #' Database connection module
+#' #'
+#' #' A regular function that is used to connect to the db.
+#' #'
+#' #' @return a DBIConnect object that can be used to query the database
+#' db_connect <- function(config) {
+#'   
+#'   if (is.null(config)) {
+#'     stop("Missing or invalid config file")
+#'   } else {
+#'     conn <- DBI::dbConnect(
+#'       RMySQL::MySQL(),
+#'       dbname =  config$dbname,
+#'       user = config$user,
+#'       host = config$host,
+#'       password = config$password
+#'     )
+#'     
+#'     # make sure we disconnect the database connection when the session ends
+#'     try({
+#'       shiny::onStop(function() {
+#'         DBI::dbDisconnect(conn)
+#'       })
+#'     })
+#'     
+#'   }
+#'   
+#'   return(list(
+#'     "conn" = conn
+#'   ))
+#' }
