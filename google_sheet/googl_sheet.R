@@ -1,6 +1,8 @@
 library(googlesheets)
+library(httr)
 
-table <- "responses"
+
+table <- "practice_database"
 
 saveData <- function(data) {
   # Grab the Google Sheet
